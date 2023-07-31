@@ -1,0 +1,41 @@
+{
+  "name": "ondc-js",
+  "version": "0.0.1",
+  "description": "js library for ONDC",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint --ignore-path .eslintignore . --fix",
+    "prepare": "husky install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gofynd/ondc-js.git"
+  },
+  "keywords": [
+    "ondc"
+  ],
+  "author": "Tushar Moraye<tusharmoraye@gmail.com>",
+  "contributors": [
+    "Tushar Moraye<tusharmoraye@gmail.com>"
+  ],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gofynd/ondc-js/issues"
+  },
+  "homepage": "https://github.com/gofynd/ondc-js#readme",
+  "lint-staged": {
+    "*.{ts,js}": [
+      "npm run lint"
+    ]
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.6.7",
+    "@commitlint/config-conventional": "^17.6.7",
+    "eslint": "^8.45.0",
+    "eslint-config-airbnb-typescript": "^17.1.0",
+    "eslint-config-prettier": "^8.9.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.3"
+  }
+}
