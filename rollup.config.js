@@ -1,16 +1,13 @@
 import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
-import babel from "@rollup/plugin-babel";
 import typescript from "@rollup/plugin-typescript";
+import babel from "@rollup/plugin-babel";
+import terser from "@rollup/plugin-terser";
+import bundleSize from "rollup-plugin-bundle-size";
 
 export default {
   input: "src/index.ts",
   output: [
-    {
-      file: "dist/ondc-js.umd.js",
-      format: "umd",
-      name: "ONDCjs",
-    },
     {
       file: "dist/ondc-js.cjs.js",
       format: "cjs",
@@ -29,6 +26,7 @@ export default {
       babelHelpers: "runtime",
       exclude: "node_modules/**",
     }),
+    bundleSize(),
   ],
-  external: ["axios"],
+  external: ["axios", "libsodium-wrappers", "uuid", "url-join"],
 };
