@@ -13,11 +13,11 @@ export enum RequestAction {
   SELECT = "select",
   INIT = "init",
   CONFIRM = "confirm",
-  CANCEL = "cancel",
   STATUS = "status",
-  SUPPORT = "support",
-  TRACK = "track",
+  CANCEL = "cancel",
   UPDATE = "update",
+  TRACK = "track",
+  SUPPORT = "support",
   RATING = "rating",
 }
 
@@ -26,10 +26,10 @@ export enum ResponseAction {
   ON_SELECT = "on_select",
   ON_INIT = "on_init",
   ON_CONFIRM = "on_confirm",
-  ON_CANCEL = "on_cancel",
   ON_STATUS = "on_status",
-  ON_SUPPORT = "on_support",
-  ON_TRACK = "on_track",
+  ON_CANCEL = "on_cancel",
   ON_UPDATE = "on_update",
+  ON_TRACK = "on_track",
+  ON_SUPPORT = "on_support",
   ON_RATING = "on_rating",
 }

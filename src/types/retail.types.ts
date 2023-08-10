@@ -107,3 +107,8 @@ export interface OnSupportMessage {
   /** Format: uri */
   uri?: string;
 }
+
+export interface OnRatingMessage {
+  feedback_ack?: string;
+  rating_ack?: string;
+}
