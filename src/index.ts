@@ -1,4 +1,5 @@
-import BAPClient from "./BAPClient";
-import BPPClient from "./BPPClient";
+export { default as BAPClient } from "./BAPClient";
+export { default as BPPClient } from "./BPPClient";
 
-export { BAPClient, BPPClient };
+export { middleware as expressMiddlware } from "./middlewares/express";
+export { middleware as koaMiddleware } from "./middlewares/koa";

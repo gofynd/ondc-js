@@ -1,3 +1,5 @@
+import { Request, Response, NextFunction } from "express";
+
 import { RequestAction, ResponseAction } from "../helper/constants";
 
 interface BaseContext {
@@ -40,3 +42,28 @@ export interface BPPConfig extends CommonConfig, BPPIndentifier {}
 export interface BPPContext extends BPPConfig, Partial<BAPIndentifier> {}
 
 export interface BAPContext extends BAPConfig, Partial<BPPIndentifier> {}
+
+export interface NPConfig extends Partial<BAPConfig>, Partial<BPPConfig> {}
+
+// middleware types
+
+type EnumObject<T extends string, V> = {
+  [K in T]: V;
+};
+
+type BaseConfig = {
+  verifyAuth?: boolean;
+  verifySchema?: boolean;
+};
+
+type Handler = BaseConfig & {
+  handler: (req: Request, res: Response, next: NextFunction) => void;
+};
+
+export type WebhookConfig = EnumObject<RequestAction | ResponseAction, Handler>;
+
+export type ExpressMiddlewareConfig = {
+  client: any;
+  config: BaseConfig;
+  webhookConfig: WebhookConfig;
+};

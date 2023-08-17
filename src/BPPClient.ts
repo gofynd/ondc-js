@@ -21,6 +21,10 @@ export default class BPPClient {
     this.config = { ...DEFAULT_CONFIG, ...config };
   }
 
+  getConfig() {
+    return this.config;
+  }
+
   async onSearch(message: OnSearchMessage, context?: BPPContext) {
     const action = ResponseAction.ON_SEARCH;
     const response = await sendActionToNP(this.config, action, message, context);

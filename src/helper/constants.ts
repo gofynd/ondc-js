@@ -5,7 +5,7 @@ export const DEFAULT_CONFIG = {
   ttl: "PT30S",
   coreVersion: "1.0.0",
   gatewayUrl: "https://pilot-gateway-1.beckn.nsdl.co.in",
-  registryUrl: "https://pilot-registry-1.beckn.nsdl.co.in",
+  registryUrl: "https://pilot-gateway-1.beckn.nsdl.co.in",
 };
 
 export enum RequestAction {
@@ -32,4 +32,16 @@ export enum ResponseAction {
   ON_TRACK = "on_track",
   ON_SUPPORT = "on_support",
   ON_RATING = "on_rating",
+}
+
+export enum SubscriberType {
+  BAP = "BAP",
+  BPP = "BPP",
+  BG = "BG",
+}
+
+export enum RegistryAction {
+  LOOKUP = "lookup",
+  VLOOKUP = "vlookup",
+  SUBSCRIBE = "subscribe",
 }

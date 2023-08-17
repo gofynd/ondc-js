@@ -1,8 +1,11 @@
 import urlJoin from "url-join";
 import { v4 as uuidv4 } from "uuid";
+import { Request } from "express";
 
 import { BAPContext, BPPContext } from "../types/common.types";
-import { RequestAction, ResponseAction } from "./constants";
+import { RegistryAction, RequestAction, ResponseAction, SubscriberType } from "./constants";
+import { verifyAuthorizationHeader } from "./crypticUtils";
+import { splitAuthHeader } from "./utils";
 import ApiClient from "./ApiClient";
 
 export function getContext(action: RequestAction | ResponseAction, config: any, context: BAPContext | BPPContext): any {
@@ -36,7 +39,7 @@ export function getAuthContext(config) {
   };
 }
 
-export function getActionUrl(baseUri: string, action: RequestAction | ResponseAction) {
+export function getActionUrl(baseUri: string, action: RequestAction | ResponseAction | RegistryAction) {
   return urlJoin(baseUri, action);
 }
 
@@ -54,4 +57,27 @@ export async function sendActionToNP(config, action, message, context?) {
     response = err.response;
   }
   return response.data;
+}
+
+async function getNpPublicKeyFromHeader(authHeader: string, type: SubscriberType, registryUrl: string) {
+  const headerParts = splitAuthHeader(authHeader);
+  const npId = headerParts?.keyId.split("|")[0];
+  const payload = { type, subscriber_id: npId };
+  let npPublickey;
+  try {
+    let response = await ApiClient.post(getActionUrl(registryUrl, RegistryAction.LOOKUP), { data: payload });
+    npPublickey = response.data[0]?.signing_public_key || "";
+  } catch (_) {}
+  return npPublickey;
+}
+
+export async function validateAuthHeader(req: Request, config: any): Promise<Boolean> {
+  const authHeader = req.headers.authorization;
+  const type = config?.bapId ? SubscriberType.BPP : SubscriberType.BAP;
+  const registryUrl = config?.registryUrl;
+
+  const npPublickey = await getNpPublicKeyFromHeader(authHeader, type, registryUrl);
+
+  const isValid = await verifyAuthorizationHeader(authHeader, req.body, npPublickey);
+  return isValid;
 }

@@ -15,3 +15,19 @@ export function transformRequestOptions(params) {
   }
   return options ? options.slice(0, -1) : options;
 }
+
+export function splitAuthHeader(authHeader: string): any {
+  authHeader = authHeader.replace("Signature ", "");
+  if (!authHeader) return {};
+  const keyValuePairsRegex = /(\w+)=\\"([^\\"]+)\\"/g;
+  const keyValuePairs = {};
+  let match;
+
+  while ((match = keyValuePairsRegex.exec(authHeader)) !== null) {
+    const key = match[1];
+    const value = match[2];
+    keyValuePairs[key] = value;
+  }
+
+  return keyValuePairs;
+}

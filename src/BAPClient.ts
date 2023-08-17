@@ -21,6 +21,10 @@ export default class BAPClient {
     this.config = { ...DEFAULT_CONFIG, ...config };
   }
 
+  getConfig() {
+    return this.config;
+  }
+
   async search(message: SearchMessage, context?: BAPContext) {
     const action = RequestAction.SEARCH;
     const response = await sendActionToNP(this.config, action, message, context);

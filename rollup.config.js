@@ -28,5 +28,5 @@ export default {
     }),
     bundleSize(),
   ],
-  external: ["axios", "libsodium-wrappers", "uuid", "url-join"],
+  external: ["axios", "libsodium-wrappers", "uuid", "url-join", "express"],
 };
